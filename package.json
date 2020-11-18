@@ -1,11 +1,11 @@
 {
   "name": "Fyp-Project",
   "version": "1.0.0",
-  "type": "module",
+
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec babel-node Server/server.js",
+    "start": "nodemon --watch client --exec babel-node Server/server.js",
     "build": "rm -rf dist && babel Server -d dist  && cd client && npm install && npm run build",
     "heroku-postbuild-x": "npm run build && cd client && npm install && npm run build"
   },

@@ -36,9 +36,7 @@ app.get('*', (req, res) => {
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
-app.get('/', (req, res) => {
-  res.send('Server is ready');
-});
+
 app.listen(config.PORT, () => {
   console.log('Server started at http://localhost:5000');
 });

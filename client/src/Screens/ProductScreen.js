@@ -45,7 +45,10 @@ function ProductScreen(props) {
    return (
     <div>
       <div className="back-to-result">
-        <Link to="/">Back to home</Link>
+        <div className="fa fa-arrow-left" aria-hidden="true">
+           <Link  to="/product">Back to Product</Link>
+        </div>
+       
       </div>
       {loading ? (
         <LoadingBox></LoadingBox>
