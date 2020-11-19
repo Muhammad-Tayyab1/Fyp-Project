@@ -11,6 +11,7 @@ function ProductScreen(props) {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
     const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
   const userSignin = useSelector((state) => state.userSignin);
@@ -39,6 +40,9 @@ function ProductScreen(props) {
       })
     );
   };
+  const changeImage = (image) => {
+    setSelectedImage(image);
+  };
   const handleAddToCart = () => {
     props.history.push(`/cart/${productId}? qty= ${qty}`);
   };
@@ -58,7 +62,8 @@ function ProductScreen(props) {
             <>
               <div className="details">
                 <div className="details-image">
-                  <img src={product.image} alt="product"></img>
+                  <img  src={selectedImage || product.image}
+                alt={product.name}></img>
                 </div>
                 <div className="details-info">
                   <ul>
@@ -88,7 +93,16 @@ function ProductScreen(props) {
                     <li >
                         <h4>Image:</h4>
                       <div className="smallcontain">
-                        <img src={product.image} className='smalsize' alt="product"></img>
+                     
+                        <button
+                          type="button"
+                          className="light"
+                          onClick={() => changeImage(product.image)}
+                        >
+                         
+                        <img src={product.image} className='smalsize' alt={product.image}></img>
+                        </button>
+                      
                       </div>
                     </li>
                   </ul>
@@ -130,8 +144,22 @@ function ProductScreen(props) {
               </div>
 
               <div className="content-margined">          
-            <ul className="review" id="reviews">
-              
+              <h2 id="reviews">Reviews</h2>
+              {!product.reviews.length && (
+                <MessageBox>There is no review</MessageBox>
+              )}
+              <ul>
+                {product.reviews.map((review) => (
+                  <li key={review._id}>
+                    <strong>{review.name}</strong>
+
+                    <Rating value={review.rating} />
+
+                    <p>{review.createdAt.substring(0, 10)}</p>
+                    <p>{review.comment}</p>
+                  </li>
+                ))}
+
               <li>
                 <h3>Write a customer review</h3>
                 {userInfo ? (
