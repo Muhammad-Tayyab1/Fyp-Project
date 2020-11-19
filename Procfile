@@ -1,1 +1,1 @@
-web: node --experimental-modules Server/server.js
+web: node dist/server.js
