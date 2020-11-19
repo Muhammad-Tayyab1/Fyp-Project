@@ -186,6 +186,7 @@ function ProductScreen(props) {
                           name="comment"
                           value={comment}
                           placeholder="Write Comment..."
+                          required
                           onChange={(e) => setComment(e.target.value)}
                         ></textarea>
                       </li>
