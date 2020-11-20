@@ -1,11 +1,11 @@
 import express from 'express';
-import Product from '../models/productModel';
-import { isAuth, isAdmin } from '../util';
+import Product from '../models/productModel.js';
+import { isAuth, isAdmin } from '../util.js';
 import expressAsyncHandler from 'express-async-handler';
 
-const router = express.Router();
+const productRouter = express.Router();
 
-router.get('/', expressAsyncHandler(async (req, res) => {
+productRouter.get('/', expressAsyncHandler(async (req, res) => {
   const category = req.query.category ? { category: req.query.category } : {};
   const searchKeyword = req.query.searchKeyword
     ? {
@@ -26,7 +26,7 @@ router.get('/', expressAsyncHandler(async (req, res) => {
   res.send(products);
 }));
 
-router.get('/:id', expressAsyncHandler(async (req, res) => {
+productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
   const product = await Product.findOne({ _id: req.params.id });
   if (product) {
     res.send(product);
@@ -34,7 +34,7 @@ router.get('/:id', expressAsyncHandler(async (req, res) => {
     res.status(404).send({ message: 'Product Not Found.' });
   }
 }));
-router.post(
+productRouter.post(
   '/:id/reviews',
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -60,7 +60,7 @@ router.post(
     }
   })
 );
-router.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+productRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if (product) {
@@ -81,7 +81,7 @@ router.put('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
   return res.status(500).send({ message: ' Error in Updating Product.' });
 }));
 
-router.delete('/:id',isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+productRouter.delete('/:id',isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
   const deletedProduct = await Product.findById(req.params.id);
   if (deletedProduct) {
     await deletedProduct.remove();
@@ -91,7 +91,7 @@ router.delete('/:id',isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
   }
 }));
 
-router.post('/',isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+productRouter.post('/',isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
@@ -111,5 +111,24 @@ router.post('/',isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
   }
   return res.status(500).send({ message: ' Error in Creating Product.' });
 }));
-
-export default router;
+productRouter.post(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const product = new Product({
+      name: 'sample name ' + Date.now(),
+      image: '/images/p1.jpg',
+      price: 0,
+      category: 'sample category',
+      brand: 'sample brand',
+      countInStock: 0,
+      rating: 0,
+      numReviews: 0,
+      description: 'sample description',
+    });
+    const createdProduct = await product.save();
+    res.send({ message: 'Product Created', product: createdProduct });
+  })
+);
+export default productRouter;

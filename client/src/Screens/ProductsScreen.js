@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import {
   saveProduct,
   listProducts,
@@ -8,6 +7,7 @@ import {
 } from '../actions/productActions';
 import LoadingBox from '../component/LoadingBox';
 import MessageBox from '../component/MessageBox';
+import Axios from 'axios';
 
 function ProductsScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -80,25 +80,26 @@ function ProductsScreen(props) {
       dispatch(deleteProduct(product._id));
     }
   };
-  const uploadFileHandler = (e) => {
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('image', file);
     setUploading(true);
-    axios
-      .post('/api/uploads', bodyFormData, {
+    try {
+      const { data } = await Axios.post('/api/uploads', bodyFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
         },
-      })
-      .then((response) => {
-        setImage(response.data);
-        setUploading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setUploading(false);
       });
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      
+      setUploading(false);
+    }
   };
   return (
     <div className="content content-margined">

@@ -1,12 +1,12 @@
 import express from 'express';
-import User from '../models/userModel';
-import { getToken, isAuth,isAdmin } from '../util';
+import User from '../models/userModel.js';
+import { getToken, isAuth,isAdmin } from '../util.js';
 import bcrypt from 'bcryptjs'
 import expressAsyncHandler from 'express-async-handler';
 
-const router = express.Router();
+const userRouter= express.Router();
 
-router.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
+userRouter.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
   if (user) {
@@ -26,7 +26,7 @@ router.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
   }
 }));
 
-router.post('/signin', expressAsyncHandler(async (req, res) => {
+userRouter.post('/signin', expressAsyncHandler(async (req, res) => {
   const signinUser = await User.findOne({
     email: req.body.email,
     password: req.body.password,
@@ -44,7 +44,7 @@ router.post('/signin', expressAsyncHandler(async (req, res) => {
   }
 }));
 
-router.post('/register', expressAsyncHandler(async (req, res) => {
+userRouter.post('/register', expressAsyncHandler(async (req, res) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -64,7 +64,7 @@ router.post('/register', expressAsyncHandler(async (req, res) => {
   }
 }));
 
-router.get('/createadmin', expressAsyncHandler(async (req, res) => {
+userRouter.get('/createadmin', expressAsyncHandler(async (req, res) => {
   try {
     const user = new User({
       name: 'Tayyab',
@@ -79,7 +79,7 @@ router.get('/createadmin', expressAsyncHandler(async (req, res) => {
     res.send({ message: error.message });
   }
 }));
-router.put(
+userRouter.put(
   '/profile',
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -101,7 +101,7 @@ router.put(
     }
   })
 );
-router.delete(
+userRouter.delete(
   '/:id',
   isAuth,
   isAdmin,
@@ -116,14 +116,14 @@ router.delete(
   })
 );
 
-router.get(
+userRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
   })
 );
-router.get(
+userRouter.get(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ _id: req.params.id });
@@ -134,4 +134,4 @@ router.get(
     }
   })
 );
-export default router;
+export default userRouter;
