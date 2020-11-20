@@ -20,7 +20,7 @@ window.location.reload(false);
         |
         <Link to ="/about">About</Link>
         |
-        <Link to="/contect">Contact</Link>
+        <Link to="/faqs">FAQs</Link>
       </p>
       <p className="footer-company-name">© 2020 Shoe Point.</p>
     </div>
