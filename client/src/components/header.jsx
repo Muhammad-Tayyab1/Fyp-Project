@@ -16,27 +16,27 @@ const tutorialSteps = [
   {
     label: 'New Style shoes',
     imgPath:
-      '/Images/bg_img-2.jpg',
+      '/images/bg_img-2.jpg',
   },
   {
     label: 'New Mens styling shoes',
     imgPath:
-      '/Images/img_bg_3.jpg',
+      '/images/img_bg_3.jpg',
   },
   {
     label: ' Women Shoes',
     imgPath:
-      '/Images/bg-Img_6.jpg',
+      '/images/bg-Img_6.jpg',
   },
   {
     label: 'Best Collection',
     imgPath:
-      '/Images/bg_img-4.jpg',
+      '/images/bg_img-4.jpg',
   },
   {
     label: 'New Design',
     imgPath:
-      '/Images/bg-Img_5.jpg',
+      '/images/bg-Img_5.jpg',
   },
   {
     label: 'Mens Sneakers ',
