@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MessageBox from '../component/MessageBox';
 import LoadingBox from '../component/LoadingBox';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
+import { CART_EMPTY } from '../constants/cartConstants';
 
 function ProfileScreen(props) {
   const [name, setName] = useState('');
@@ -21,6 +22,7 @@ function ProfileScreen(props) {
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/signin");
+    dispatch({type: CART_EMPTY});
   }
   const submitHandler = (e) => {
     e.preventDefault();

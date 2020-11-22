@@ -41,7 +41,7 @@ const tutorialSteps = [
   {
     label: 'Mens Sneakers ',
     imgPath:
-      '/Images/img_bg_8.jpg',
+      '/images/img_bg_8.jpg',
   },
 
 ];
