@@ -12,6 +12,7 @@
     "@wellyshen/use-web-animations": "^0.5.10",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+    "firebase": "^8.2.10",
     "history": "^5.0.0",
     "js-cookie": "^2.2.1",
     "react": "^17.0.1",
