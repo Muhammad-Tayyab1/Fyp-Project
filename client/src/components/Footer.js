@@ -22,7 +22,7 @@ window.location.reload(false);
         |
         <Link to="/faqs">FAQs</Link>
       </p>
-      <p className="footer-company-name">© 2020 Shoe Point.</p>
+      <p className="footer-company-name">© 2021 Shoe Point.</p>
     </div>
     <div className="footer-center">
       <div>
@@ -32,11 +32,11 @@ window.location.reload(false);
       </div>
       <div>
         <i className="fa fa-phone" />
-        <p>03096127551</p>
+        <p>03450465088</p>
       </div>
       <div>
         <i className="fa fa-envelope" />
-        <p><a href="mailto:m.tayyab0162@gmail.com">m.tayyab0162@gmail.com</a></p>
+        <p><a href="mailto:muhammadtayyab0165@gmail.com">Mail</a></p>
       </div>
     </div>
     <div className="footer-right">
